@@ -1,0 +1,26 @@
+FROM apache/spark
+
+USER root
+# Copy Python 3.12 from the Python image into the Spark image
+RUN apt update && \
+    apt install software-properties-common -y && \
+    add-apt-repository ppa:deadsnakes/ppa -y && \
+    apt remove --purge software-properties-common -y && \
+    apt autoremove -y && \
+    apt update && \
+    apt-get install python3.12-full -y && \
+    rm -rf /var/cache/apt/archives /var/lib/apt/lists
+
+# Make sure pip functions properly, since setuptools was removed in 3.12
+RUN python3.12 -m ensurepip --upgrade && \
+    python3.12 -m pip install --upgrade setuptools
+
+# Create home directory for the spark user to allow pip to work
+RUN mkdir /home/spark && chown spark:spark /home/spark
+USER spark
+ENV PATH=/home/spark/.local/bin:$PATH
+
+ENV PYSPARK_PYTHON=/usr/bin/python3.12
+
+# Set the entry point to the Spark entry point
+ENTRYPOINT ["/opt/entrypoint.sh"]

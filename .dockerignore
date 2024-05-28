@@ -1,0 +1,12 @@
+Dockerfile
+Dockerfile-spark
+.dockerignore
+dist
+.venv
+__pycache__
+kubernetes
+pipelines_with_spark.egg-info
+.gitignore
+LICENSE
+README.md
+.git
