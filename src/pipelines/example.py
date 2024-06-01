@@ -4,6 +4,7 @@ from pyspark.ml.classification import LogisticRegression
 from pyspark.ml.feature import HashingTF, Tokenizer
 
 from pipelines.io import cleanup, read_inputs, dump_output
+from pipelines.analytics import get_accreditation_stats_per_university
 
 
 def pipeline(spark: SparkSession):
@@ -12,7 +13,11 @@ def pipeline(spark: SparkSession):
 
     data["university"].show()
 
-    dump_output(data)
+    accreditation_stats = get_accreditation_stats_per_university(data)
+
+    dump_output({
+        "accreditation_stats": accreditation_stats
+    })
 
 
 def old_pipeline(spark: SparkSession):
