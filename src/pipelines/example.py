@@ -3,8 +3,19 @@ from pyspark.ml import Pipeline
 from pyspark.ml.classification import LogisticRegression
 from pyspark.ml.feature import HashingTF, Tokenizer
 
+from pipelines.io import cleanup, read_inputs, dump_output
+
 
 def pipeline(spark: SparkSession):
+    cleanup()
+    data = read_inputs(spark)
+
+    data["university"].show()
+
+    dump_output(data)
+
+
+def old_pipeline(spark: SparkSession):
     # Prepare training documents from a list of (id, text, label) tuples.
     training = spark.createDataFrame([
         (0, "a b c d e spark", 1.0),

@@ -62,7 +62,13 @@ docker build -t localhost:5001/spark:python3.12 -f Dockerfile-spark .
 docker push localhost:5001/spark:python3.12
 ```
 
+### Get the Data
+On Kaggle, download the [India Higher Education Analytics dataset](https://www.kaggle.com/datasets/rajanand/aishe) and unpack
+it to a folder `data` within this project directory.
+
 ## Run
+Note that the code as-is will likely hit an OutOfMemory (OOM) error.
+
 ```shell
 docker build -t localhost:5001/pipelines-with-spark:latest .
 docker push localhost:5001/pipelines-with-spark:latest

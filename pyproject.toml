@@ -9,6 +9,7 @@ dependencies = [
     "pyspark~=3.5.1",
     "numpy~=1.26.4",
     "setuptools~=70.0.0",
+    "pandas~=2.2.2",
 ]
 
 [build-system]
