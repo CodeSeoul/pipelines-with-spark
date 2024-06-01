@@ -24,8 +24,6 @@ def read_inputs(spark: SparkSession, data_path: str="data/All India Survey on Hi
     dataframe has the year added from the file name.
     """
 
-    spark.udf.register("filename", lambda x: x.rsplit("/", 1)[-1])
-
     tables: Dict[str, DataFrame] = {}
     for path in Path(data_path).glob("*.csv"):
         # Create a dataframe from the file
